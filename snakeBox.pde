@@ -1,3 +1,5 @@
+
+
 // segment points
 float[] x = new float[50];
 float[] y = new float[50];
@@ -8,8 +10,7 @@ PVector boxPos = new PVector(random(width/2), height/2);
 PVector boxPos2 = new PVector(500, height/2);
 
 ArrayList<Box> myBox = new ArrayList<Box> ();
-//Box myBox;
-Box newBox;
+
 float hit;
 
 //time slicer
@@ -41,8 +42,7 @@ void draw() {
     for (int i=0; i<x.length-hide; i++) {
       dragSegment(i+1, x[i], y[i]);
     }
-  myBox.add(new Box(boxPos, 25));
- 
+    myBox.add(new Box(boxPos, 25));
   }
 
   popMatrix();
@@ -51,37 +51,27 @@ void draw() {
     group.display();
     group.update();
     hit = dist(mouseX, mouseY, group.pos.x + group.size/2, group.pos.y + group.size/2);
-    println(group.pos.x + group.size/2);
-    println("mouse" + mouseX);
-    println("hit " + hit);
-    if (hit < group.size / 2) {
-      //newBox = new Box(boxPos2, 25);
-      if (hide > 0) {
-      hide --;
-      } else {
-        hide = 0;
-      }
+
+    return;
   }
-  }
-  return;
 }
 
-void dragSegment(int i, float xin, float yin) {
-  float dx = xin - x[i];
-  float dy = yin - y[i];
-  float angle = atan2(dy, dx);  
-  x[i] = xin - cos(angle) * segLength;
-  y[i] = yin - sin(angle) * segLength;
-  segment(x[i], y[i], angle);
-}
-
-
-void segment(float x, float y, float a) {
-  pushMatrix();
-  {
-    translate(x, y);
-    rotate(a);
-    line(0, 0, segLength, 0);
+  void dragSegment(int i, float xin, float yin) {
+    float dx = xin - x[i];
+    float dy = yin - y[i];
+    float angle = atan2(dy, dx);  
+    x[i] = xin - cos(angle) * segLength;
+    y[i] = yin - sin(angle) * segLength;
+    segment(x[i], y[i], angle);
   }
-  popMatrix();
-}
+
+
+  void segment(float x, float y, float a) {
+    pushMatrix();
+    {
+      translate(x, y);
+      rotate(a);
+      line(0, 0, segLength, 0);
+    }
+    popMatrix();
+  }
